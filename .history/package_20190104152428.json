@@ -21,7 +21,6 @@
     "popper": "1.0.1"
   },
   "devDependencies": {
-    "ejs": "2.6.1",
     "eslint": "5.11.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.14.0",
