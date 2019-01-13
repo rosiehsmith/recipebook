@@ -32,13 +32,13 @@ function router(nav) {
             (async function query() {
                 const request = new sql.Request();
 
-                const { recordset } = await request.query('select * from books');
+                const result = await request.query('select * from books');
                 res.render(
                     'bookListView',
                     {
                         nav,
                         title: 'Library',
-                        books: recordset
+                        books: result.recordset
                     }
                 );
             }());
@@ -49,16 +49,18 @@ function router(nav) {
             (async function query() {
                 const { id } = req.params;
                 const request = new sql.Request();
-                const { recordset } = await request
-                    .input('id', sql.Int, id)
-                    .query('select * from books where id = @id');
+                const result = 
+                    await request
+                        .input('id', sql.Int, id)
+                        .query('select * from books where id = @id');
 
+                debug(chalk.red(result));
                 res.render(
                     'bookView',
                     {
                         nav,
                         title: 'Library Book',
-                        book: recordset[0]
+                        book: result.recordset[0]
                     }
                 );
             }());

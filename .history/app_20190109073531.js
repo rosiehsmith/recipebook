@@ -13,13 +13,13 @@ const config = {
     password: 'l1brary!',
     server: 'pslibrary-rh.database.windows.net', // You can use 'localhost\\instance' to connect to named instance
     database: 'PSLibrary',
-
+ 
     options: {
         encrypt: true // Use this if you're on Windows Azure
     }
-};
+}
 
-sql.connect(config).catch((err) => { debug(err); });
+sql.connect(config);
 
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,19 +38,14 @@ const bookRouter = require('./src/routes/bookRoutes')(nav);
 
 app.use('/books', bookRouter);
 app.get('/', (req, res) => {
-    (async function query() {
-        const request = new sql.Request();
-
-        const { recordset } = await request.query('select * from books');
-        res.render(
-            'index',
-            {
-                nav,
-                title: 'Library',
-                books: recordset
-            }
-        );
-    }());
+    res.render(
+        'index',
+        {
+            nav: [{ link: '/books', title: 'Books' },
+                { link: '/authors', title: 'Authors' }],
+            title: 'Library',
+        },
+    );
 });
 
 app.listen(port, () => {

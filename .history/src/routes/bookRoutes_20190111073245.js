@@ -49,9 +49,10 @@ function router(nav) {
             (async function query() {
                 const { id } = req.params;
                 const request = new sql.Request();
-                const { recordset } = await request
-                    .input('id', sql.Int, id)
-                    .query('select * from books where id = @id');
+                const { recordset } = 
+                    await request
+                        .input('id', sql.Int, id)
+                        .query('select * from books where id = @id');
 
                 res.render(
                     'bookView',

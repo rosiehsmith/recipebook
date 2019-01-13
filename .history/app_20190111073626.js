@@ -38,19 +38,14 @@ const bookRouter = require('./src/routes/bookRoutes')(nav);
 
 app.use('/books', bookRouter);
 app.get('/', (req, res) => {
-    (async function query() {
-        const request = new sql.Request();
-
-        const { recordset } = await request.query('select * from books');
-        res.render(
-            'index',
-            {
-                nav,
-                title: 'Library',
-                books: recordset
-            }
-        );
-    }());
+    res.render(
+        'bookListView',
+        {
+            nav: [{ link: '/books', title: 'Books' },
+                { link: '/authors', title: 'Authors' }],
+            title: 'Library',
+        },
+    );
 });
 
 app.listen(port, () => {

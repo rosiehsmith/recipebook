@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
         const { recordset } = await request.query('select * from books');
         res.render(
-            'index',
+            'bookListView',
             {
                 nav,
                 title: 'Library',
